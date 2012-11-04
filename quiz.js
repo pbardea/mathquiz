@@ -22,7 +22,7 @@ function QuizCtrl($scope) {
             ];
 
         o = operations[0];
-        var op = o.op(2, 3);
+        var ans = o.ad(2, 3);
 
         var answer = 0
         if (operandIndex == 0){
@@ -35,7 +35,7 @@ function QuizCtrl($scope) {
             answer = num1-num2
         }
 
-        $scope.questions.push({text:questionText, answer:answer, option1:op});
+        $scope.questions.push({text:questionText, answer:answer});
     }
   }
 }
