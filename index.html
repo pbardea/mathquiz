@@ -1,0 +1,26 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+    <script src="quiz.js"></script>
+  </head>
+  <body>
+<div class="row">
+
+    <div class="nine columns" role="content">
+    <h3>Math Quiz</h3>
+    <div ng-controller="QuizCtrl">
+      <ol >
+        <li ng-repeat="question in questions">
+            {{question.text}}
+            <br />
+            <input type="radio" name="{{question.text}}" value="{{question.option1}}">{{question.option1}}</input>
+            <hr />
+        </li>
+      </ol>
+
+    </div>
+    </div>
+
+  </body>
+</html>
