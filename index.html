@@ -1,26 +1,29 @@
 <!doctype html>
 <html ng-app>
-  <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
-    <script src="quiz.js"></script>
-  </head>
-  <body>
-<div class="row">
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+        <script src="quiz.js"></script>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="stylesheets/base.css" rel="stylesheet" media="screen">
+    </head>
+    <body>
+        <div class="row">
+            <div class="nine columns" role="content">
+                <h4>Math Quiz</h4>
+                <div ng-controller="QuizCtrl">
+                    <ul class="qcontainer">
+                        <li ng-repeat="question in questions">
+                            {{question.text}}
+                            <br/>
+                            <input ng-model="question.user_answer" size="6"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-large btn-primary">Done</button>
 
-    <div class="nine columns" role="content">
-    <h3>Math Quiz</h3>
-    <div ng-controller="QuizCtrl">
-      <ol >
-        <li ng-repeat="question in questions">
-            {{question.text}}
-            <br />
-<!--            <input type="radio" name="{{question.text}}" value="{{question.option1}}">{{question.option1}}</input>-->
-            <hr />
-        </li>
-      </ol>
-
-    </div>
-    </div>
-
-  </body>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
 </html>

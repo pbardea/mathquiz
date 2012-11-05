@@ -35,7 +35,7 @@ function QuizCtrl($scope) {
             answer = num1-num2
         }
 
-        $scope.questions.push({text:questionText, answer:answer});
+        $scope.questions.push({text:questionText, correct_answer:answer});
     }
   }
 }
