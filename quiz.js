@@ -1,5 +1,6 @@
 function QuizCtrl($scope) {
   $scope.questions = [];
+  $scope.question_types = {add: true, sub: false, mul: false, div: false};
 
   populate();
  
