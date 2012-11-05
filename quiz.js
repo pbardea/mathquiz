@@ -5,7 +5,7 @@ function QuizCtrl($scope) {
   populate();
  
   function populate(){
-    for (var i=0;i<11;i++)
+    for (var i=0;i<12;i++)
     { 
         var num1 = Math.floor(Math.random()*101)
         var num2 = Math.floor(Math.random()*101)
