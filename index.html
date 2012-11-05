@@ -7,6 +7,14 @@
         <link href="stylesheets/base.css" rel="stylesheet" media="screen">
     </head>
     <body>
+
+        <div class="btn-group" data-toggle="buttons-checkbox">
+            <button ng-model="question_types.addition" type="button" class="btn btn-primary">Addition</button>
+            <button type="button" class="btn btn-primary">Subtraction</button>
+            <button type="button" class="btn btn-primary">Multiplication</button>
+            <button type="button" class="btn btn-primary">Division</button>
+        </div>
+
         <div class="row">
             <div class="nine columns" role="content">
                 <h4>Math Quiz</h4>
@@ -15,7 +23,7 @@
                         <li ng-repeat="question in questions">
                             {{question.text}}
                             <br/>
-                            <input ng-model="question.user_answer" size="6"/>
+                            <input ng-model="question.user_answer" type="text" placeholder="???" size="6"/>
                         </li>
                     </ul>
                 </div>
@@ -24,6 +32,6 @@
         <button type="submit" class="btn btn-large btn-primary">Done</button>
 
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
