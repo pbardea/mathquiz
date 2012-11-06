@@ -1,5 +1,4 @@
 body {
-    padding-top: 50px;
     padding-left: 50px;
 }
 
@@ -19,6 +18,14 @@ ul.qcontainer li {
     padding: 20px;
     border: 1px solid #eee;
     background: #f7f7f7;
+}
+
+ul.qcontainer li.correct {
+    background: #ccffcc;
+}
+
+ul.qcontainer li.wrong {
+    background: #ffcccc;
 }
 
 ul.qcontainer li input {

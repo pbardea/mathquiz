@@ -1,37 +1,67 @@
 <!doctype html>
-<html ng-app>
+<html>
     <head>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
         <script src="quiz.js"></script>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="stylesheets/base.css" rel="stylesheet" media="screen">
     </head>
-    <body>
+    <body ng-app="mathApp" ng-controller="QuizCtrl">
 
-        <div class="btn-group" data-toggle="buttons-checkbox">
-            <button ng-model="question_types.addition" type="button" class="btn btn-primary">Addition</button>
-            <button type="button" class="btn btn-primary">Subtraction</button>
-            <button type="button" class="btn btn-primary">Multiplication</button>
-            <button type="button" class="btn btn-primary">Division</button>
+        <!--
+        <div class="btn-group" data-toggle="buttons-checkbox" >
+            <button math-checkbox="add" ng-class="makeClass(this)" type="button" class="btn btn-primary">Addition</button>
+            <button math-checkbox="sub" type="button" class="btn btn-primary">Subtraction</button>
+            <button ng-class="makeClass(this)" type="button" class="btn btn-primary">Multiplication</button>
+            <button id="bbb" type="button" class="btn btn-primary">Division</button>
+        </div>
+
+        <button math-checkbox="add" ng-class="{true: 'btn-primary', false: ''}[add]" type="button" class="btn">Addition</button>
+        <button math-checkbox="sub" ng-class="{true: 'btn-primary', false: ''}[sub]" type="button" class="btn">Subtraction</button>
+        -->
+
+        <h4>Math Quiz</h4>
+
+        <div class="btn-group" data-toggle="buttons-checkbox" >
+            <button ng-click="question_types.add=!question_types.add" ng-class="btnClass(question_types.add)" type="button" class="btn">Addition</button>
+            <button ng-click="question_types.sub=!question_types.sub" ng-class="btnClass(question_types.sub)" type="button" class="btn">Subtraction</button>
+            <button ng-click="question_types.mul=!question_types.mul" ng-class="btnClass(question_types.mul)" type="button" class="btn">Multiplication</button>
+            <button ng-click="question_types.div=!question_types.div" ng-class="btnClass(question_types.div)" type="button" class="btn">Divison</button>
         </div>
 
         <div class="row">
             <div class="nine columns" role="content">
-                <h4>Math Quiz</h4>
-                <div ng-controller="QuizCtrl">
+                <div>
                     <ul class="qcontainer">
-                        <li ng-repeat="question in questions">
+                        <li ng-repeat="question in questions" ng-class="paneClass(question)">
                             {{question.text}}
                             <br/>
                             <input ng-model="question.user_answer" type="text" placeholder="???" size="6"/>
+                            <br/>
+                            <span ng-show="scored">Answer: {{question.correct_answer}}</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-large btn-primary">Done</button>
+        <p/>
+        <div ng-show="scored">
+            <h4>Score Card</h4>
+            Correct Answers: {{correctAnswers()}}; 
+            Wrong Aswers: {{wrongAnswers()}}
+            <br/>
+        </div>
+        <button ng-click="score()" ng-show="!scored" type="submit" class="btn btn-large btn-primary">Done</button>
+        <button ng-click="reset()" ng-show="scored" type="submit" class="btn btn-large btn-primary">Hit Me Again</button>
 
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
+        <!--
+        <script>
+            $(".btn-group").click(function() {
+                alert("clicked");
+            });
+        </script>
+        -->
     </body>
 </html>
