@@ -47,7 +47,9 @@
                 <div>
                     <ul class="qcontainer">
                         <li ng-repeat="question in questions" ng-class="paneClass(question)">
-                            {{question.text}}
+                            <div class="question-text">
+                                {{question.text}}
+                            </div>
                             <br/>
                             <input ng-model="question.user_answer" type="text" placeholder="???" size="6"/>
                             <br/>

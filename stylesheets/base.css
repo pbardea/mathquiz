@@ -2,6 +2,11 @@ body {
     padding-left: 50px;
 }
 
+.question-text {
+    padding-left: 3px;
+    font-size: 1.4em;
+}
+
 ul.qcontainer {
     list-style-type: none;
     list-style: none;
