@@ -29,6 +29,19 @@
             <button ng-click="question_types.div=!question_types.div" ng-class="btnClass(question_types.div)" type="button" class="btn">Divison</button>
         </div>
 
+        <span class="score-card" ng-show="scored && questions.length > 0">
+            <span class="correct">
+                Correct: 
+                {{correctAnswers()}}
+            </span>
+            &nbsp;
+            <span class="wrong">
+                Wrong: 
+                {{wrongAnswers()}}
+            </span>
+        </span>
+
+        <p/>
         <div class="row">
             <div class="nine columns" role="content">
                 <div>
@@ -45,12 +58,6 @@
             </div>
         </div>
         <p/>
-        <div ng-show="scored && questions.length > 0">
-            <h4>Score Card</h4>
-            Correct Answers: {{correctAnswers()}}; 
-            Wrong Aswers: {{wrongAnswers()}}
-            <br/>
-        </div>
         <button ng-click="score()" ng-show="!scored && (questions.length > 0)" type="submit" class="btn btn-large btn-primary">Done</button>
         <button ng-click="reset()" ng-show="scored" type="submit" class="btn btn-large btn-primary">Start A New Test</button>
 

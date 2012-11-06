@@ -32,5 +32,20 @@ ul.qcontainer li input {
     width: 40px;
 }
 
+.score-card {
+    font-size: 1.4em;
+    font-weight: bold;
+    border: solid 1px #efefef;
+    padding: 6px;
+}
+
+.score-card span.correct {
+    color: green;
+}
+
+.score-card span.wrong {
+    color: red;
+}
+
 
 
