@@ -104,7 +104,7 @@ function QuizCtrl($scope) {
             answer = x * y;
         }
         else if (op == "/") {
-            x = randomInt(0, 12);
+            x = randomInt(1, 12);
             y = randomInt(0, 12);
             questionText = y * x + " / " + x;
             answer = y;
