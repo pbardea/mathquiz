@@ -51,9 +51,12 @@
                                 {{question.text}}
                             </div>
                             <br/>
-                            <input ng-model="question.user_answer" type="text" placeholder="???" size="6"/>
-                            <br/>
-                            <span ng-show="scored">Answer: {{question.correct_answer}}</span>
+                            <input ng-show="!scored" ng-model="question.user_answer" type="text" placeholder="???" size="6"/>
+                            <span ng-show="scored">
+                                Your Answer: {{question.user_answer}}
+                                <br/>
+                                Correct Answer: {{question.correct_answer}}
+                            </span>
                         </li>
                     </ul>
                 </div>
