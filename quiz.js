@@ -1,9 +1,7 @@
 function QuizCtrl($scope) {
   $scope.questions = [];
   $scope.question_types = {add: true, sub: true, mul: true, div: true};
-  $scope.scored = false;
-
-  populate();
+  $scope.scored = true;
 
   $scope.btnClass = function(v) {
       return v ? "btn-primary" : "";

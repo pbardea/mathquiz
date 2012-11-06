@@ -45,14 +45,14 @@
             </div>
         </div>
         <p/>
-        <div ng-show="scored">
+        <div ng-show="scored && questions.length > 0">
             <h4>Score Card</h4>
             Correct Answers: {{correctAnswers()}}; 
             Wrong Aswers: {{wrongAnswers()}}
             <br/>
         </div>
-        <button ng-click="score()" ng-show="!scored" type="submit" class="btn btn-large btn-primary">Done</button>
-        <button ng-click="reset()" ng-show="scored" type="submit" class="btn btn-large btn-primary">Hit Me Again</button>
+        <button ng-click="score()" ng-show="!scored && (questions.length > 0)" type="submit" class="btn btn-large btn-primary">Done</button>
+        <button ng-click="reset()" ng-show="scored" type="submit" class="btn btn-large btn-primary">Start A New Test</button>
 
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
