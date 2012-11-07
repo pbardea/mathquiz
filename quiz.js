@@ -2,7 +2,7 @@ function QuizCtrl($scope) {
   $scope.questions = [];
   $scope.questionCount = 10;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
-  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false};
+  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb1: false};
   $scope.scored = true;
 
   $scope.btnClass = function(v) {
@@ -95,6 +95,8 @@ function QuizCtrl($scope) {
         operations.push("/");
     if (qt.conv)
         operations.push("conv");
+    if (qt.wordProb1)
+        operations.push("wordProb1");
 
     if (operations.length == 0)
         return;
@@ -140,6 +142,17 @@ function QuizCtrl($scope) {
             // Avoid floating point mishaps. Only keep the right number of decimals.
             if (cp1 < cp2) 
                 answer = answer.toFixed(cp2 - cp1);
+        }
+        else if (op == "wordProb1") {
+            var x = randomInt(0,100);
+            var y = randomInt(1,100);
+            var nameIndex1 = randomInt(0,10);
+            do{
+                var nameIndex2 = randomInt(0,10);
+            }while (nameIndex2 == nameIndex1)
+            var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
+            questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many do they have together?";
+            answer = x+y;
         }
 
         $scope.questions.push({text:questionText, correct_answer:answer, user_answer: '', correct: false});
