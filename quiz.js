@@ -1,5 +1,6 @@
 function QuizCtrl($scope) {
   $scope.questions = [];
+  $scope.questionCount = 10;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
   $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false};
   $scope.scored = true;
@@ -98,7 +99,7 @@ function QuizCtrl($scope) {
     if (operations.length == 0)
         return;
 
-    for (var i=0; i<12; i++) { 
+    for (var i = 0; i < $scope.questionCount; i++) { 
         var questionText = null;
         var answer = null;
         op = randomChoice(operations);
@@ -116,7 +117,7 @@ function QuizCtrl($scope) {
         }
         else if (op == "*") {
             var x = randomInt(0, 12);
-            var y = randomInt(0, 12);
+            var y = randomInt(1, 12);
             questionText = x + " * " + y;
             answer = Math.round(x * y);
         }
