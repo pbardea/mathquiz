@@ -1,6 +1,7 @@
 function QuizCtrl($scope) {
   $scope.questions = [];
-  $scope.question_types = {add: true, sub: true, mul: true, div: true};
+  // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
+  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false};
   $scope.scored = true;
 
   $scope.btnClass = function(v) {
@@ -64,6 +65,22 @@ function QuizCtrl($scope) {
         return xs[randomInt(0, xs.length - 1)];
   }
 
+  function randomProp(obj) {
+      var props = [];
+      for (var prop in obj)
+          props.push(prop);
+      return randomChoice(props);
+  }
+
+  var conversions = [
+      {'mililiters': -3, 'centiliters': -2, 'deciliters': -1, 'liters': 0},
+      {'miligrams': -3, 'centigrams': -2, 'decigrams': -1, 'grams': 0, 'kilograms': 3, 'tons': 6},
+      {'mm': -3, 'cm': -2, 'decimeters': -1, 'm': 0, 'decameters': 1, 'hectometers': 2, 'km': 3},
+      {'thousands': -3, 'hundreads': -2, 'tens': -1, 'ones': 0, 'tens': 1, 'hundreads': 2, 'thousands': 3, 'millions': 6, 'billions': 9},
+      {'bytes': 0, 'kilobytes': 3, 'megabytes': 6, 'gigabytes': 9}
+  ];
+
+
   function populate(){
     var operations = [];
     var qt = $scope.question_types;
@@ -75,6 +92,8 @@ function QuizCtrl($scope) {
         operations.push("*");
     if (qt.div) 
         operations.push("/");
+    if (qt.conv)
+        operations.push("conv");
 
     if (operations.length == 0)
         return;
@@ -84,30 +103,43 @@ function QuizCtrl($scope) {
         var answer = null;
         op = randomChoice(operations);
         if (op == "+"){
-            x = randomInt(0, 50);
-            y = randomInt(0, 50);
+            var x = randomInt(0, 50);
+            var y = randomInt(0, 50);
             questionText = x + " + " + y;
-            answer = x + y;
+            answer = Math.round(x + y);
         } 
         else if (op == "-") {
-            x = randomInt(20, 40);
-            y = randomInt(0, x);
+            var x = randomInt(20, 40);
+            var y = randomInt(0, x);
             questionText = x + " - " + y;
-            answer = x - y;
+            answer = Math.round(x - y);
         }
         else if (op == "*") {
-            x = randomInt(0, 12);
-            y = randomInt(0, 12);
+            var x = randomInt(0, 12);
+            var y = randomInt(0, 12);
             questionText = x + " * " + y;
-            answer = x * y;
+            answer = Math.round(x * y);
         }
         else if (op == "/") {
-            x = randomInt(1, 12);
-            y = randomInt(0, 12);
+            var x = randomInt(1, 12);
+            var y = randomInt(0, 12);
             questionText = y * x + " / " + x;
-            answer = y;
+            answer = Math.round(y);
         }
-        answer = Math.round(answer);
+        else if (op == "conv") {
+            var x = randomInt(1, 10000);
+            var conversion = randomChoice(conversions);
+            var p1 = randomProp(conversion);
+            var p2 = randomProp(conversion);
+            var cp1 = conversion[p1];
+            var cp2 = conversion[p2];
+            var convRate = Math.pow(10, cp1 - cp2);
+            questionText = x + " " + p1 + " in " + p2;
+            answer = x * convRate;
+            // Avoid floating point mishaps. Only keep the right number of decimals.
+            if (cp1 < cp2) 
+                answer = answer.toFixed(cp2 - cp1);
+        }
 
         $scope.questions.push({text:questionText, correct_answer:answer, user_answer: '', correct: false});
     }

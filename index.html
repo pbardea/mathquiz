@@ -27,6 +27,7 @@
             <button ng-click="question_types.sub=!question_types.sub" ng-class="btnClass(question_types.sub)" type="button" class="btn">Subtraction</button>
             <button ng-click="question_types.mul=!question_types.mul" ng-class="btnClass(question_types.mul)" type="button" class="btn">Multiplication</button>
             <button ng-click="question_types.div=!question_types.div" ng-class="btnClass(question_types.div)" type="button" class="btn">Divison</button>
+            <button ng-click="question_types.conv=!question_types.conv" ng-class="btnClass(question_types.conv)" type="button" class="btn">Conversions</button>
         </div>
 
         <span class="score-card" ng-show="scored && questions.length > 0">
@@ -51,7 +52,7 @@
                                 {{question.text}}
                             </div>
                             <br/>
-                            <input ng-show="!scored" ng-model="question.user_answer" type="text" placeholder="???" size="6"/>
+                            <input ng-show="!scored" ng-model="question.user_answer" type="text" placeholder="???" size="15"/>
                             <span ng-show="scored">
                                 Your Answer: {{question.user_answer}}
                                 <br/>
