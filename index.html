@@ -29,7 +29,7 @@
             <button ng-click="question_types.div=!question_types.div" ng-class="btnClass(question_types.div)" type="button" class="btn">Divison</button>
             <button ng-click="question_types.conv=!question_types.conv" ng-class="btnClass(question_types.conv)" type="button" class="btn">Conversions</button>
         </div>
-
+        <br /><br />
         <span class="score-card" ng-show="scored && questions.length > 0">
             <span class="correct">
                 Correct: 
@@ -56,7 +56,7 @@
                             <span ng-show="scored">
                                 Your Answer: {{question.user_answer}}
                                 <br/>
-                                Correct Answer: {{question.correct_answer}}
+                                Accepted Answer(s): {{question.correct_answer}}
                             </span>
                         </li>
                     </ul>
