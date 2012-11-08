@@ -60,7 +60,10 @@
                             <span ng-show="scored">
                                 Your Answer: {{question.user_answer}}
                                 <br/>
-                                Accepted Answer(s): {{question.correct_answer}}
+                                Accepted Answer(s):
+                                <span data-ng-repeat="answer in question.correct_answer">
+                                {{answer}}
+                                </span>
                             </span>
                         </li>
                     </ul>
