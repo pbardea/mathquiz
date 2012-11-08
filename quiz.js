@@ -181,22 +181,22 @@ function QuizCtrl($scope) {
             }
         }
         else if (op == "wordProbMult"){
-            var boxes = randomInt(1,12);
+            var baskets = randomInt(1,12);
             var apples = randomInt(1,12);
             var nameIndex1 = randomInt(0,10);
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
-            questionText = names[nameIndex1] + " has " + boxes + " baskets of apples. Each baseket has " + apples + " apples inside. How many apples does " + names[nameIndex1] + " have?";
-            answer = [boxes*apples];
+            questionText = names[nameIndex1] + " has " + baskets + " baskets of apples. Each baseket has " + apples + " apples inside. How many apples does " + names[nameIndex1] + " have?";
+            answer = [baskets*apples];
         }
         else if (op == "wordProbDiv"){
             var nameIndex1 = randomInt(0,10);
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
 
-            var boxes = randomInt(1,12);
-            var applesInEachBox = randomInt(0,12);
-            questionText = applesInEachBox * boxes + " / " + boxes;
-            questionText = names[nameIndex1] + " has " + boxes + " baskets of apples. In total " + names[nameIndex1] + " has " + applesInEachBox * boxes + " apples. How many apples are there in each box?";
-            answer = [Math.round(applesInEachBox),88];
+            var baskets = randomInt(1,12);
+            var applesInEachBasket = randomInt(0,12);
+            questionText = applesInEachBasket * baskets + " / " + baskets;
+            questionText = names[nameIndex1] + " has " + baskets + " baskets of apples. In total " + names[nameIndex1] + " has " + applesInEachBasket * baskets + " apples. How many apples are there in each basket?";
+            answer = [Math.round(applesInEachBasket)];
         }
 
         $scope.questions.push({text:questionText, correct_answer:answer, user_answer: '', correct: false});
