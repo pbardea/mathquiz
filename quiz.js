@@ -2,7 +2,7 @@ function QuizCtrl($scope) {
   $scope.questions = [];
   $scope.questionCount = 10;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
-  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb1: false, wordProb2: false, wordProb3: false, wordProb4: false};
+  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProbAdd: false, wordProbSub: false, wordProbMult: false, wordProbDiv: false};
   $scope.scored = true;
 
   $scope.btnClass = function(v) {
@@ -95,14 +95,14 @@ function QuizCtrl($scope) {
         operations.push("/");
     if (qt.conv)
         operations.push("conv");
-    if (qt.wordProb1)
-        operations.push("wordProb1");
-    if (qt.wordProb2)
-        operations.push("wordProb2");
-    if (qt.wordProb3)
-        operations.push("wordProb3");
-    if (qt.wordProb4)
-        operations.push("wordProb4");
+    if (qt.wordProbAdd)
+        operations.push("wordProbAdd");
+    if (qt.wordProbSub)
+        operations.push("wordProbSub");
+    if (qt.wordProbMult)
+        operations.push("wordProbMult");
+    if (qt.wordProbDiv)
+        operations.push("wordProbDiv");
 
     if (operations.length == 0)
         return;
@@ -149,7 +149,7 @@ function QuizCtrl($scope) {
             if (cp1 < cp2) 
                 answer = answer.toFixed(cp2 - cp1);
         }
-        else if (op == "wordProb1") {
+        else if (op == "wordProbAdd") {
             var x = randomInt(0,100);
             var y = randomInt(1,100);
             var nameIndex1 = randomInt(0,10);
@@ -160,7 +160,7 @@ function QuizCtrl($scope) {
             questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many do they have together?";
             answer = x+y;
         }
-        else if (op == "wordProb2") {
+        else if (op == "wordProbSub") {
             var x = randomInt(0,100);
             var y = randomInt(1,100);
             var nameIndex1 = randomInt(0,10);
@@ -176,7 +176,7 @@ function QuizCtrl($scope) {
                 answer = y-x;
             }
         }
-        else if (op == "wordProb3"){
+        else if (op == "wordProbMult"){
             var boxes = randomInt(1,12);
             var apples = randomInt(1,12);
             var nameIndex1 = randomInt(0,10);
@@ -184,7 +184,7 @@ function QuizCtrl($scope) {
             questionText = names[nameIndex1] + " has " + boxes + " baskets of apples. Each baseket has " + apples + " apples inside. How many apples does " + names[nameIndex1] + " have?";
             answer = boxes*apples;
         }
-        else if (op == "wordProb4"){
+        else if (op == "wordProbDiv"){
             var nameIndex1 = randomInt(0,10);
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
 
