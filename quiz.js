@@ -141,7 +141,9 @@ function QuizCtrl($scope) {
             var x = randomInt(1, 10000);
             var conversion = randomChoice(conversions);
             var p1 = randomProp(conversion);
-            var p2 = randomProp(conversion);
+            do{
+                var p2 = randomProp(conversion);
+            }while(p1 == p2);
             var cp1 = conversion[p1];
             var cp2 = conversion[p2];
             var convRate = Math.pow(10, cp1 - cp2);
