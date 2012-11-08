@@ -2,7 +2,7 @@ function QuizCtrl($scope) {
   $scope.questions = [];
   $scope.questionCount = 10;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
-  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProbAdd: false, wordProbSub: false, wordProbMult: false, wordProbDiv: false};
+  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb: false};
   $scope.scored = true;
 
   $scope.btnClass = function(v) {
@@ -99,14 +99,12 @@ function QuizCtrl($scope) {
         operations.push("/");
     if (qt.conv)
         operations.push("conv");
-    if (qt.wordProbAdd)
+    if (qt.wordProb) {
         operations.push("wordProbAdd");
-    if (qt.wordProbSub)
         operations.push("wordProbSub");
-    if (qt.wordProbMult)
         operations.push("wordProbMult");
-    if (qt.wordProbDiv)
         operations.push("wordProbDiv");
+    }
 
     if (operations.length == 0)
         return;
