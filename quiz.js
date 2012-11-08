@@ -21,8 +21,12 @@ function QuizCtrl($scope) {
       var questions = $scope.questions;
       for (i = 0; i < questions.length; i++) {
           q = questions[i];
-          if (q.user_answer != '' && q.correct_answer == q.user_answer)
-              q.correct = true;
+          for (k = 0; k < q.correct_answer.length; k++){
+            ans = q.correct_answer[k];
+            if (q.user_answer == ans && q.user_answer != ''){
+                q.correct = true;
+            }
+          }
       }
       $scope.scored = true;
   }
@@ -115,25 +119,25 @@ function QuizCtrl($scope) {
             var x = randomInt(0, 50);
             var y = randomInt(0, 50);
             questionText = x + " + " + y;
-            answer = Math.round(x + y);
+            answer = [Math.round(x + y)];
         } 
         else if (op == "-") {
             var x = randomInt(20, 40);
             var y = randomInt(0, x);
             questionText = x + " - " + y;
-            answer = Math.round(x - y);
+            answer = [Math.round(x - y)];
         }
         else if (op == "*") {
             var x = randomInt(0, 12);
             var y = randomInt(1, 12);
             questionText = x + " * " + y;
-            answer = Math.round(x * y);
+            answer = [Math.round(x * y)];
         }
         else if (op == "/") {
             var x = randomInt(1, 12);
             var y = randomInt(0, 12);
             questionText = y * x + " / " + x;
-            answer = Math.round(y);
+            answer = [Math.round(y)];
         }
         else if (op == "conv") {
             var x = randomInt(1, 10000);
@@ -147,7 +151,7 @@ function QuizCtrl($scope) {
             answer = x * convRate;
             // Avoid floating point mishaps. Only keep the right number of decimals.
             if (cp1 < cp2) 
-                answer = answer.toFixed(cp2 - cp1);
+                answer = [answer.toFixed(cp2 - cp1)];
         }
         else if (op == "wordProbAdd") {
             var x = randomInt(0,100);
@@ -158,7 +162,7 @@ function QuizCtrl($scope) {
             }while (nameIndex2 == nameIndex1)
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
             questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many do they have together?";
-            answer = x+y;
+            answer = [x+y];
         }
         else if (op == "wordProbSub") {
             var x = randomInt(0,100);
@@ -170,10 +174,10 @@ function QuizCtrl($scope) {
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
             if (x > y){
                 questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many more apples does " + names[nameIndex1] + " have than " + names[nameIndex2] + "?";
-                answer = x-y;
+                answer = [x-y];
             }else{
                 questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many more apples does " + names[nameIndex2] + " have than " + names[nameIndex1] + "?";
-                answer = y-x;
+                answer = [y-x];
             }
         }
         else if (op == "wordProbMult"){
@@ -182,7 +186,7 @@ function QuizCtrl($scope) {
             var nameIndex1 = randomInt(0,10);
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
             questionText = names[nameIndex1] + " has " + boxes + " baskets of apples. Each baseket has " + apples + " apples inside. How many apples does " + names[nameIndex1] + " have?";
-            answer = boxes*apples;
+            answer = [boxes*apples];
         }
         else if (op == "wordProbDiv"){
             var nameIndex1 = randomInt(0,10);
@@ -192,7 +196,7 @@ function QuizCtrl($scope) {
             var applesInEachBox = randomInt(0,12);
             questionText = applesInEachBox * boxes + " / " + boxes;
             questionText = names[nameIndex1] + " has " + boxes + " baskets of apples. In total " + names[nameIndex1] + " has " + applesInEachBox * boxes + " apples. How many apples are there in each box?";
-            answer = Math.round(applesInEachBox);
+            answer = [Math.round(applesInEachBox),88];
         }
 
         $scope.questions.push({text:questionText, correct_answer:answer, user_answer: '', correct: false});
