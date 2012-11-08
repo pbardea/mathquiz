@@ -2,7 +2,7 @@ function QuizCtrl($scope) {
   $scope.questions = [];
   $scope.questionCount = 10;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
-  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb1: false};
+  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb1: false, wordProb2: false};
   $scope.scored = true;
 
   $scope.btnClass = function(v) {
@@ -97,6 +97,8 @@ function QuizCtrl($scope) {
         operations.push("conv");
     if (qt.wordProb1)
         operations.push("wordProb1");
+    if (qt.wordProb2)
+        operations.push("wordProb2");
 
     if (operations.length == 0)
         return;
@@ -153,6 +155,23 @@ function QuizCtrl($scope) {
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
             questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many do they have together?";
             answer = x+y;
+        }
+        else if (op == "wordProb2") {
+            var x = randomInt(0,100);
+            var y = randomInt(1,100);
+            var nameIndex1 = randomInt(0,10);
+            do{
+                var nameIndex2 = randomInt(0,10);
+            }while (nameIndex2 == nameIndex1)
+            var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
+            if (x > y){
+                questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many more apples does " + names[nameIndex1] + " have than " + names[nameIndex2] + "?";
+                answer = x-y;
+            }else{
+                questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many more apples does " + names[nameIndex2] + " have than " + names[nameIndex1] + "?";
+                answer = y-x;
+            }
+            //questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many do they have together?";
         }
 
         $scope.questions.push({text:questionText, correct_answer:answer, user_answer: '', correct: false});
