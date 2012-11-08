@@ -2,7 +2,7 @@ function QuizCtrl($scope) {
   $scope.questions = [];
   $scope.questionCount = 10;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
-  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb: false};
+  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb: false, findFactor: false};
   $scope.scored = true;
 
   $scope.btnClass = function(v) {
@@ -105,6 +105,8 @@ function QuizCtrl($scope) {
         operations.push("wordProbMult");
         operations.push("wordProbDiv");
     }
+    if (qt.findFactor)
+        operations.push("findFactor");
 
     if (operations.length == 0)
         return;
@@ -197,6 +199,18 @@ function QuizCtrl($scope) {
             questionText = applesInEachBasket * baskets + " / " + baskets;
             questionText = names[nameIndex1] + " has " + baskets + " baskets of apples. In total " + names[nameIndex1] + " has " + applesInEachBasket * baskets + " apples. How many apples are there in each basket?";
             answer = [Math.round(applesInEachBasket)];
+        }
+        else if (op == "findFactor"){
+            var factor = randomInt(1,12);
+            var lowLim = (factor*randomInt(1,5))+1;
+            var upLim = (factor*randomInt(6,12))-1;
+            var answer = [];
+            for (i = 0; i < (upLim - lowLim); i++){
+                if (((i+lowLim)%factor) == 0){
+                    answer.push(i+lowLim);
+                }
+            }
+            questionText = "Factor: "+factor+" "+lowLim+" "+" "+upLim;
         }
 
         $scope.questions.push({text:questionText, correct_answer:answer, user_answer: '', correct: false});
