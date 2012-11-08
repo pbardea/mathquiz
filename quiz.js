@@ -2,7 +2,7 @@ function QuizCtrl($scope) {
   $scope.questions = [];
   $scope.questionCount = 10;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
-  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb1: false, wordProb2: false, wordProb3: false};
+  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb1: false, wordProb2: false, wordProb3: false, wordProb4: false};
   $scope.scored = true;
 
   $scope.btnClass = function(v) {
@@ -101,6 +101,8 @@ function QuizCtrl($scope) {
         operations.push("wordProb2");
     if (qt.wordProb3)
         operations.push("wordProb3");
+    if (qt.wordProb4)
+        operations.push("wordProb4");
 
     if (operations.length == 0)
         return;
@@ -173,13 +175,24 @@ function QuizCtrl($scope) {
                 questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many more apples does " + names[nameIndex2] + " have than " + names[nameIndex1] + "?";
                 answer = y-x;
             }
-        }else if (op == "wordProb3"){
-            var boxes = randomInt(0,12);
-            var apples = randomInt(0,12);
+        }
+        else if (op == "wordProb3"){
+            var boxes = randomInt(1,12);
+            var apples = randomInt(1,12);
             var nameIndex1 = randomInt(0,10);
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
             questionText = names[nameIndex1] + " has " + boxes + " baskets of apples. Each baseket has " + apples + " apples inside. How many apples does " + names[nameIndex1] + " have?";
             answer = boxes*apples;
+        }
+        else if (op == "wordProb4"){
+            var nameIndex1 = randomInt(0,10);
+            var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
+
+            var boxes = randomInt(1,12);
+            var applesInEachBox = randomInt(0,12);
+            questionText = applesInEachBox * boxes + " / " + boxes;
+            questionText = names[nameIndex1] + " has " + boxes + " baskets of apples. In total " + names[nameIndex1] + " has " + applesInEachBox * boxes + " apples. How many apples are there in each box?";
+            answer = Math.round(applesInEachBox);
         }
 
         $scope.questions.push({text:questionText, correct_answer:answer, user_answer: '', correct: false});
