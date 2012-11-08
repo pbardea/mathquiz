@@ -4,7 +4,7 @@ body {
 
 .question-text {
     padding-left: 3px;
-    font-size: 1.4em;
+    font-size: 1.1em;
 }
 
 ul.qcontainer {
@@ -17,7 +17,7 @@ ul.qcontainer li {
     list-style: none;
     display: inline;
     float: left;
-    width: 200px;
+    width: 240px;
     height: 120px;
     margin: 10px;
     padding: 20px;
