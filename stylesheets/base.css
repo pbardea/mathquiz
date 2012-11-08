@@ -1,5 +1,5 @@
 body {
-    padding-left: 50px;
+    padding-left: 30px;
 }
 
 .question-text {
@@ -23,6 +23,7 @@ ul.qcontainer li {
     padding: 8px;
     border: 1px solid #eee;
     background: #f7f7f7;
+    position: relative;
 }
 
 ul.qcontainer li.correct {
@@ -35,6 +36,9 @@ ul.qcontainer li.wrong {
 
 ul.qcontainer li input {
     width: 100px;
+    position: absolute;
+    right: 6px;
+    bottom: 0px;
 }
 
 .score-card {

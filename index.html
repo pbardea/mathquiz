@@ -20,32 +20,33 @@
         <button math-checkbox="sub" ng-class="{true: 'btn-primary', false: ''}[sub]" type="button" class="btn">Subtraction</button>
         -->
 
-        <h4>Math Quiz</h4>
-
-        <div class="btn-group" data-toggle="buttons-checkbox" >
-            <button ng-click="question_types.add=!question_types.add" ng-class="btnClass(question_types.add)" type="button" class="btn">Addition</button>
-            <button ng-click="question_types.sub=!question_types.sub" ng-class="btnClass(question_types.sub)" type="button" class="btn">Subtraction</button>
-            <button ng-click="question_types.mul=!question_types.mul" ng-class="btnClass(question_types.mul)" type="button" class="btn">Multiplication</button>
-            <button ng-click="question_types.div=!question_types.div" ng-class="btnClass(question_types.div)" type="button" class="btn">Divison</button>
-            <button ng-click="question_types.conv=!question_types.conv" ng-class="btnClass(question_types.conv)" type="button" class="btn">Conversions</button>
-            <button ng-click="question_types.wordProb=!question_types.wordProb" ng-class="btnClass(question_types.wordProb)" type="button" class="btn">Word Problem</button>
-        </div>
-        <br /><br />
-        <span class="score-card" ng-show="scored && questions.length > 0">
-            <span class="correct">
-                Correct: 
-                {{correctAnswers()}}
-            </span>
-            &nbsp;
-            <span class="wrong">
-                Wrong: 
-                {{wrongAnswers()}}
-            </span>
-        </span>
-
-        <p/>
         <div class="row">
             <div class="nine columns" role="content">
+                <h4>Math Quiz</h4>
+
+                <div class="btn-group" data-toggle="buttons-checkbox" >
+                    <button ng-click="question_types.add=!question_types.add" ng-class="btnClass(question_types.add)" type="button" class="btn">Addition</button>
+                    <button ng-click="question_types.sub=!question_types.sub" ng-class="btnClass(question_types.sub)" type="button" class="btn">Subtraction</button>
+                    <button ng-click="question_types.mul=!question_types.mul" ng-class="btnClass(question_types.mul)" type="button" class="btn">Multiplication</button>
+                    <button ng-click="question_types.div=!question_types.div" ng-class="btnClass(question_types.div)" type="button" class="btn">Divison</button>
+                    <button ng-click="question_types.conv=!question_types.conv" ng-class="btnClass(question_types.conv)" type="button" class="btn">Conversions</button>
+                    <button ng-click="question_types.wordProb=!question_types.wordProb" ng-class="btnClass(question_types.wordProb)" type="button" class="btn">Word Problem</button>
+                </div>
+                <br /><br />
+                <span class="score-card" ng-show="scored && questions.length > 0">
+                    <span class="correct">
+                        Correct: 
+                        {{correctAnswers()}}
+                    </span>
+                    &nbsp;
+                    <span class="wrong">
+                        Wrong: 
+                        {{wrongAnswers()}}
+                    </span>
+                </span>
+
+                <p/>
+
                 <div>
                     <ul class="qcontainer">
                         <li ng-repeat="question in questions" ng-class="paneClass(question)">
@@ -68,14 +69,18 @@
             </div>
         </div>
         <p/>
-        <button ng-click="score()" ng-show="!scored && (questions.length > 0)" type="submit" class="btn btn-large btn-primary">Done</button>
-        <span ng-show="scored">
-            <button ng-click="reset()" ng-show="scored" type="submit" class="btn btn-large btn-primary">Start A New Test</button>
-            <br/>
-            <input type="range" min="4" max="20" ng-model="questionCount"/>
-            {{questionCount}}
-            questions
-        </span>
+        <div class="row">
+            <div>
+                <button ng-click="score()" ng-show="!scored && (questions.length > 0)" type="submit" class="btn btn-large btn-primary">Done</button>
+                <span ng-show="scored">
+                    <button ng-click="reset()" ng-show="scored" type="submit" class="btn btn-large btn-primary">Start A New Test</button>
+                    <br/>
+                    <input type="range" min="4" max="20" ng-model="questionCount"/>
+                    {{questionCount}}
+                    questions
+                </span>
+            </div>
+        </div>
 
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
