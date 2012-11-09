@@ -20,13 +20,8 @@ function QuizCtrl($scope) {
   $scope.score = function(e) {
       var questions = $scope.questions;
       for (i = 0; i < questions.length; i++) {
-          q = questions[i];
-          for (k = 0; k < q.correct_answer.length; k++){
-            ans = q.correct_answer[k];
-            if (q.user_answer == ans && q.user_answer != ''){
-                q.correct = true;
-            }
-          }
+          var q = questions[i];
+          q.correct = q.verify(q)
       }
       $scope.scored = true;
   }
@@ -57,6 +52,17 @@ function QuizCtrl($scope) {
 
   $scope.wrongAnswers = function() {
       return $scope.questions.length - $scope.correctAnswers();
+  }
+
+  function simpleVerify(question) {
+      var q = question;
+      for (k = 0; k < q.correct_answer.length; k++){
+        ans = q.correct_answer[k];
+        if (q.user_answer == ans && q.user_answer != ''){
+            return true;
+        }
+      }
+      return false;
   }
 
   function randomInt(from, to) {
@@ -213,7 +219,13 @@ function QuizCtrl($scope) {
             questionText = "Find a number divisible by "+factor+" and is between "+lowLim+" and "+" "+upLim+".";
         }
 
-        $scope.questions.push({text:questionText, correct_answer:answer, user_answer: '', correct: false});
+        $scope.questions.push({
+            text:questionText, 
+            correct_answer: answer, 
+            user_answer: '', 
+            correct: false,
+            verify: simpleVerify
+        });
     }
   }
 
