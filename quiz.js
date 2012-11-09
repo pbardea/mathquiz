@@ -215,8 +215,10 @@ function QuizCtrl($scope) {
         }
         else if (op == "findFactor"){
             var factor = randomInt(1,12);
-            var lowLim = (factor*randomInt(1,5))+1;
-            var upLim = (factor*randomInt(6,12))-1;
+            var lowLim = (factor*randomInt(1,10))+1;
+            do{
+                var upLim = (factor*randomInt(3,12))-1;
+            }while(upLim < (lowLim+factor));
             var answer = [];
             for (f = 0; f < (upLim - lowLim); f++){
                 if (((f+lowLim)%factor) == 0){
