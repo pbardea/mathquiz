@@ -54,6 +54,13 @@ function QuizCtrl($scope) {
       return $scope.questions.length - $scope.correctAnswers();
   }
 
+  function divisibleBy(factor, x){
+    if ((x % factor)==0){
+        return true;
+    }
+    return false;
+  }
+
   function simpleVerify(question) {
       var q = question;
       for (k = 0; k < q.correct_answer.length; k++){
