@@ -99,14 +99,14 @@ function QuizCtrl($scope) {
         operations.push("/");
     if (qt.conv)
         operations.push("conv");
+    if (qt.findFactor)
+        operations.push("findFactor");
     if (qt.wordProb) {
         operations.push("wordProbAdd");
         operations.push("wordProbSub");
         operations.push("wordProbMult");
         operations.push("wordProbDiv");
     }
-    if (qt.findFactor)
-        operations.push("findFactor");
 
     if (operations.length == 0)
         return;
@@ -205,12 +205,12 @@ function QuizCtrl($scope) {
             var lowLim = (factor*randomInt(1,5))+1;
             var upLim = (factor*randomInt(6,12))-1;
             var answer = [];
-            for (i = 0; i < (upLim - lowLim); i++){
-                if (((i+lowLim)%factor) == 0){
-                    answer.push(i+lowLim);
+            for (f = 0; f < (upLim - lowLim); f++){
+                if (((f+lowLim)%factor) == 0){
+                    answer.push(f+lowLim);
                 }
             }
-            questionText = "Factor: "+factor+" "+lowLim+" "+" "+upLim;
+            questionText = "Find a number divisible by "+factor+" and is between "+lowLim+" and "+" "+upLim+".";
         }
 
         $scope.questions.push({text:questionText, correct_answer:answer, user_answer: '', correct: false});
