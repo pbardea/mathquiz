@@ -61,6 +61,20 @@ function QuizCtrl($scope) {
     return false;
   }
 
+  function greaterThan(argument, x){
+    if (x > argument){
+        return true;
+    }
+    return false;
+  }
+
+  function lessThan(argument, x){
+    if (x < argument){
+        return true;
+    }
+    return false;
+  }
+
   function simpleVerify(question) {
       var q = question;
       for (k = 0; k < q.correct_answer.length; k++){
