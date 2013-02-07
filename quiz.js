@@ -2,7 +2,7 @@ function QuizCtrl($scope) {
   $scope.questions = [];
   $scope.questionCount = 10;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
-  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb: false, findFactor: false};
+  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb: false, findFactor: false, rounding: false};
   $scope.scored = true;
 
   $scope.btnClass = function(v) {
@@ -128,6 +128,8 @@ function QuizCtrl($scope) {
         operations.push("conv");
     if (qt.findFactor)
         operations.push("findFactor");
+    if (qt.rounding) 
+        operations.push("rounding");
     if (qt.wordProb) {
         operations.push("wordProbAdd");
         operations.push("wordProbSub");
@@ -181,6 +183,14 @@ function QuizCtrl($scope) {
             // Avoid floating point mishaps. Only keep the right number of decimals.
             if (cp1 < cp2) 
                 answer = [answer.toFixed(cp2 - cp1)];
+        }
+        else if (op == "rounding") {
+            var x = randomInt(1, 10000000);
+            var unit = randomChoice([0, 1, 2, 3, 4, 5]);
+            var unitNames = ["units", "tens", "hundreads", "thousands", "tens of thousands", "hundreads of thousands"];
+            var unitName = unitNames[unit];
+            questionText = "Round " + x + " to " + unitName;
+            answer = [Math.round(x / Math.pow(10, unit)) * Math.pow(10, unit)]
         }
         else if (op == "wordProbAdd") {
             var x = randomInt(0,100);
