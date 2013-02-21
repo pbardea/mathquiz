@@ -90,11 +90,15 @@ function QuizCtrl($scope) {
       return Math.floor(Math.random() * (to - from + 1)) + from
   }
 
-  function randomChoice(xs) {
+  function randomChoice(xs, excluded) {
     if (xs.length == 0)
         return null;
-    else
+    else if (!excluded)
         return xs[randomInt(0, xs.length - 1)];
+    else {
+        var remaining = _.reject(xs, function(x) {return _.contains(excluded, x)});
+        return randomChoice(remaining);
+    }
   }
 
   function randomProp(obj) {
@@ -195,46 +199,42 @@ function QuizCtrl($scope) {
         else if (op == "wordProbAdd") {
             var x = randomInt(0,100);
             var y = randomInt(1,100);
-            var nameIndex1 = randomInt(0,10);
-            do{
-                var nameIndex2 = randomInt(0,10);
-            }while (nameIndex2 == nameIndex1)
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
-            questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many do they have together?";
+            var name1 = randomChoice(names);
+            var name2 = randomChoice(names, [name1]);
+            questionText = name1 + " has " + x + " apples and " + name2 + " has " + y + " apples. How many do they have together?";
             answer = [x+y];
         }
         else if (op == "wordProbSub") {
             var x = randomInt(0,100);
             var y = randomInt(1,100);
-            var nameIndex1 = randomInt(0,10);
-            do{
-                var nameIndex2 = randomInt(0,10);
-            }while (nameIndex2 == nameIndex1)
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
+            var name1 = randomChoice(names);
+            var name2 = randomChoice(names, [name1]);
             if (x > y){
-                questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many more apples does " + names[nameIndex1] + " have than " + names[nameIndex2] + "?";
+                questionText = name1 + " has " + x + " apples and " + name2 + " has " + y + " apples. How many more apples does " + name1 + " have than " + name2 + "?";
                 answer = [x-y];
             }else{
-                questionText = names[nameIndex1] + " has " + x + " apples and " + names[nameIndex2] + " has " + y + " apples. How many more apples does " + names[nameIndex2] + " have than " + names[nameIndex1] + "?";
+                questionText = name1 + " has " + x + " apples and " + name2 + " has " + y + " apples. How many more apples does " + name2 + " have than " + name1 + "?";
                 answer = [y-x];
             }
         }
         else if (op == "wordProbMult"){
             var baskets = randomInt(1,12);
             var apples = randomInt(1,12);
-            var nameIndex1 = randomInt(0,10);
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
-            questionText = names[nameIndex1] + " has " + baskets + " baskets of apples. Each baseket has " + apples + " apples inside. How many apples does " + names[nameIndex1] + " have?";
+            var name = randomChoice(names);
+            questionText = name + " has " + baskets + " baskets of apples. Each basket has " + apples + " apples inside. How many apples does " + name + " have?";
             answer = [baskets*apples];
         }
         else if (op == "wordProbDiv"){
-            var nameIndex1 = randomInt(0,10);
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
+            var name = randomChoice(names);
 
             var baskets = randomInt(1,12);
             var applesInEachBasket = randomInt(0,12);
             questionText = applesInEachBasket * baskets + " / " + baskets;
-            questionText = names[nameIndex1] + " has " + baskets + " baskets of apples. In total " + names[nameIndex1] + " has " + applesInEachBasket * baskets + " apples. How many apples are there in each basket?";
+            questionText = name + " has " + baskets + " baskets of apples. In total " + name + " has " + applesInEachBasket * baskets + " apples. How many apples are there in each basket?";
             answer = [Math.round(applesInEachBasket)];
         }
         else if (op == "findFactor"){
@@ -261,9 +261,6 @@ function QuizCtrl($scope) {
         });
     }
   }
-
-
-
 }
 
 angular.module('mathApp', [])
