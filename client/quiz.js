@@ -143,6 +143,7 @@ function QuizCtrl($scope) {
     }
     if (qt.wordProb2) {
         operations.push("wordProbTwoPlus");
+        operations.push("wordProbThreePlus");
     }
 
     if (operations.length == 0)
@@ -244,10 +245,10 @@ function QuizCtrl($scope) {
             var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
             var name1 = randomChoice(names);
             var name2 = randomChoice(names, [name1]);
-            var apples1 = randomInt(6, 20);
-            var apples2 = randomInt(6, 20);
+            var apples1 = randomInt(2, 15);
+            var apples2 = randomInt(2, 15);
             if (apples1 == apples2) 
-                apples2 += 5;
+                apples2 += 3;
 
             var compiled = _.template("<%= name1 %> and <%= name2 %> have <%= apples1 + apples2 %> apples together. <%= name1 %> has <%= Math.abs(apples1 - apples2) %> apples <%= (apples1 > apples2) ? 'more' : 'less' %> than <%= name2 %>. How many apples does <%= name1 %> have?");
             questionText = compiled({
@@ -255,6 +256,28 @@ function QuizCtrl($scope) {
                 name2: name2,
                 apples1: apples1, 
                 apples2: apples2 
+            });
+            answer = apples1;
+        }
+        else if (op == "wordProbThreePlus") {
+            var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
+            var name1 = randomChoice(names);
+            var name2 = randomChoice(names, [name1]);
+            var name3 = randomChoice(names, [name1, name2]);
+            var apples1 = randomInt(2, 15);
+            var apples2 = randomInt(2, 15);
+            var apples3 = randomInt(2, 10);
+            if (apples1 == apples2) 
+                apples2 += 3;
+
+            var compiled = _.template("<%= name1 %>, <%= name2 %> and <%= name3 %> have <%= apples1 + apples2 + apples3 %> apples together. <%= name3 %> has <%= apples3 %> apples. <%= name1 %> has <%= Math.abs(apples1 - apples2) %> apples <%= (apples1 > apples2) ? 'more' : 'less' %> than <%= name2 %>. How many apples does <%= name1 %> have?");
+            questionText = compiled({
+                name1: name1,
+                name2: name2,
+                name3: name3,
+                apples1: apples1, 
+                apples2: apples2,
+                apples3: apples3
             });
             answer = apples1;
         }
