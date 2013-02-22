@@ -2,7 +2,7 @@ function QuizCtrl($scope) {
   $scope.questions = [];
   $scope.questionCount = 10;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
-  $scope.question_types = {add: true, sub: false, mul: false, div: false, conv: false, wordProb: false, findFactor: false, rounding: false};
+  $scope.question_types = {add: false, sub: false, mul: false, div: false, conv: false, wordProb: false, wordProb2: false, findFactor: false, rounding: false};
   $scope.scored = true;
 
   $scope.btnClass = function(v) {
@@ -77,13 +77,14 @@ function QuizCtrl($scope) {
 
   function simpleVerify(question) {
       var q = question;
-      for (k = 0; k < q.correct_answer.length; k++){
-        ans = q.correct_answer[k];
-        if (q.user_answer == ans && q.user_answer != ''){
-            return true;
-        }
+      if (q.user_answer == '')
+          return false;
+      else if (typeof(q.correct_answer) != 'object')
+          return q.user_answer == q.correct_answer;
+      else {
+          // multiple correct answers (array)
+          return _.contains(q.correct_answer, q.user_answer);
       }
-      return false;
   }
 
   function randomInt(from, to) {
@@ -139,6 +140,9 @@ function QuizCtrl($scope) {
         operations.push("wordProbSub");
         operations.push("wordProbMult");
         operations.push("wordProbDiv");
+    }
+    if (qt.wordProb2) {
+        operations.push("wordProbTwoPlus");
     }
 
     if (operations.length == 0)
@@ -233,9 +237,26 @@ function QuizCtrl($scope) {
 
             var baskets = randomInt(1,12);
             var applesInEachBasket = randomInt(0,12);
-            questionText = applesInEachBasket * baskets + " / " + baskets;
             questionText = name + " has " + baskets + " baskets of apples. In total " + name + " has " + applesInEachBasket * baskets + " apples. How many apples are there in each basket?";
             answer = [Math.round(applesInEachBasket)];
+        }
+        else if (op == "wordProbTwoPlus") {
+            var names = ["John","Paul","Michael","Joseph","Manuel","Sandra","Alexander","Mario","Tom","Jack","Jill"];
+            var name1 = randomChoice(names);
+            var name2 = randomChoice(names, [name1]);
+            var apples1 = randomInt(6, 20);
+            var apples2 = randomInt(6, 20);
+            if (apples1 == apples2) 
+                apples2 += 5;
+
+            var compiled = _.template("<%= name1 %> and <%= name2 %> have <%= apples1 + apples2 %> apples together. <%= name1 %> has <%= Math.abs(apples1 - apples2) %> apples <%= (apples1 > apples2) ? 'more' : 'less' %> than <%= name2 %>. How many apples does <%= name1 %> have?");
+            questionText = compiled({
+                name1: name1,
+                name2: name2,
+                apples1: apples1, 
+                apples2: apples2 
+            });
+            answer = apples1;
         }
         else if (op == "findFactor"){
             var factor = randomInt(1,12);

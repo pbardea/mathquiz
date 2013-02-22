@@ -34,6 +34,7 @@
                     <button ng-click="question_types.conv=!question_types.conv" ng-class="btnClass(question_types.conv)" type="button" class="btn">Conversions</button>
                     <button ng-click="question_types.rounding=!question_types.rounding" ng-class="btnClass(question_types.rounding)" type="button" class="btn">Rounding</button>
                     <button ng-click="question_types.wordProb=!question_types.wordProb" ng-class="btnClass(question_types.wordProb)" type="button" class="btn">Word Problem</button>
+                    <button ng-click="question_types.wordProb2=!question_types.wordProb2" ng-class="btnClass(question_types.wordProb2)" type="button" class="btn">Word Problem (L2)</button>
                     <button ng-click="question_types.findFactor=!question_types.findFactor" ng-class="btnClass(question_types.findFactor)" type="button" class="btn">Multiple</button>
                 </div>
                 <br /><br />
@@ -62,9 +63,9 @@
                             <span ng-show="scored">
                                 Your Answer: {{question.user_answer}}
                                 <br/>
-                                Accepted Answer(s):
-                                <span data-ng-repeat="answer in question.correct_answer">
-                                {{answer}}
+                                Correct Answer(s):
+                                <span>
+                                {{question.correct_answer}}
                                 </span>
                             </span>
                         </li>
