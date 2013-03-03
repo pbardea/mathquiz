@@ -5,6 +5,14 @@ function QuizCtrl($scope) {
   $scope.question_types = {add: false, sub: false, mul: false, div: false, conv: false, wordProb: false, wordProb2: false, findFactor: false, rounding: false};
   $scope.scored = true;
 
+  $scope.showDone = function() {
+      return $scope.questions.length > 0 && !$scope.scored;
+  }
+
+  $scope.showNewTest = function() {
+      return $scope.questions.length == 0 || $scope.scored;
+  }
+
   $scope.btnClass = function(v) {
       return v ? "btn-primary" : "";
   }
