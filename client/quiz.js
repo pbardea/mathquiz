@@ -304,8 +304,11 @@ function QuizCtrl($scope) {
             questionText = "Find a number divisible by "+factor+" and is between "+lowLim+" and "+" "+upLim+".";
         }
 
+        // Turn corret answers into an array of string
         if (_.isArray(answer))
             answer = _.map(answer, function(x) {return x.toString()})
+        else
+            answer = [answer.toString()]
 
         $scope.questions.push({
             text:questionText, 
