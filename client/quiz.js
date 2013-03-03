@@ -79,7 +79,7 @@ function QuizCtrl($scope) {
       var q = question;
       if (q.user_answer == '')
           return false;
-      else if (typeof(q.correct_answer) != 'object')
+      else if (! _.isArray(q.correct_answer))
           return q.user_answer == q.correct_answer;
       else {
           // multiple correct answers (array)
@@ -295,6 +295,9 @@ function QuizCtrl($scope) {
             }
             questionText = "Find a number divisible by "+factor+" and is between "+lowLim+" and "+" "+upLim+".";
         }
+
+        if (_.isArray(answer))
+            answer = _.map(answer, function(x) {return x.toString()})
 
         $scope.questions.push({
             text:questionText, 
