@@ -1,6 +1,7 @@
 function QuizCtrl ($scope) {
   $scope.questions = [];
-  $scope.questionCount = 10;
+  $scope.question_container = false;
+  $scope.questionCount = 8;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
   $scope.question_types = {add: false, sub: false, mul: false, div: false, conv: false, wordProb: false, wordProb2: false, findFactor: false, rounding: false};
   $scope.scored = true;
@@ -48,6 +49,7 @@ function QuizCtrl ($scope) {
 
   $scope.reset = function() {
       $scope.scored = false;
+      $scope.question_container = true;
       $scope.questions = [];
       populate();
   };

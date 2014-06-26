@@ -25,7 +25,6 @@
         <div class="container">
             <div class="nine columns" role="content">
                 <h4>Math Quiz</h4>
-
                 <div class="btn-group" data-toggle="buttons-checkbox" >
                     <button ng-click="question_types.add=!question_types.add" ng-class="btnClass(question_types.add)" type="button" class="btn">Addition</button>
                     <button ng-click="question_types.sub=!question_types.sub" ng-class="btnClass(question_types.sub)" type="button" class="btn">Subtraction</button>
@@ -49,12 +48,9 @@
                         {{wrongAnswers()}}
                     </span>
                 </span>
-
-                <p/>
-
-                <div>
+                <div class="question-container" ng-show"question_container">
                     <ul class="qcontainer">
-                        <li class="span3 col-md-4" ng-repeat="question in questions" ng-class="paneClass(question)">
+                        <li class="col-md-4 col-xs-6" ng-repeat="question in questions" ng-class="paneClass(question)">
                             <div class="question-text">
                                 {{question.text}}
                             </div>
@@ -73,16 +69,15 @@
                 </div>
             </div>
         </div>
-        <p/>
         <div class="container">
             <div>
-                <span ng-show="showDone()">
+                <span class="btn-done" ng-show="showDone()">
                     <button ng-click="score()" type="submit" class="btn btn-large btn-primary">Done</button>
                 </span>
                 <span ng-show="showNewTest()">
                     <button ng-click="reset()" type="submit" class="btn btn-large btn-primary">Start A New Test</button>
                     <br/>
-                    <input type="range" min="4" max="20" ng-model="questionCount"/>
+                    <input type="range" min="2" max="20" ng-model="questionCount"/>
                     {{questionCount}}
                     questions
                 </span>
@@ -91,12 +86,5 @@
 
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
-        <!--
-        <script>
-            $(".btn-group").click(function() {
-                alert("clicked");
-            });
-        </script>
-        -->
     </body>
 </html>
