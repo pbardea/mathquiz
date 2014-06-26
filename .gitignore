@@ -1,0 +1,4 @@
+#Remove a os generated hidden files
+
+.DS_Store
+*.DS_Store
