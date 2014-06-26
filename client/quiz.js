@@ -1,69 +1,75 @@
-function QuizCtrl($scope) {
+function QuizCtrl ($scope) {
   $scope.questions = [];
-  $scope.questionCount = 10;
+  $scope.question_container = false;
+  $scope.questionCount = 8;
   // $scope.question_types = {add: true, sub: true, mul: true, div: true, conv: false};
   $scope.question_types = {add: false, sub: false, mul: false, div: false, conv: false, wordProb: false, wordProb2: false, findFactor: false, rounding: false};
   $scope.scored = true;
 
   $scope.showDone = function() {
-      return $scope.questions.length > 0 && !$scope.scored;
-  }
+    return $scope.questions.length > 0 && !$scope.scored;
+  };
 
   $scope.showNewTest = function() {
-      return $scope.questions.length == 0 || $scope.scored;
-  }
+    return $scope.questions.length === 0 || $scope.scored;
+  };
 
   $scope.btnClass = function(v) {
-      return v ? "btn-primary" : "";
-  }
+    return v ? "btn-primary" : "";
+  };
 
   $scope.toggle = function(v) {
-      $scope.add = !$scope.add;
-  }
+    $scope.add = !$scope.add;
+  };
 
   $scope.test_click = function(e) {
-      e = !e;
-  }
+    e = !e;
+  };
 
   $scope.score = function(e) {
-      var questions = $scope.questions;
-      for (i = 0; i < questions.length; i++) {
-          var q = questions[i];
-          q.correct = q.verify(q)
-      }
-      $scope.scored = true;
-  }
+    var questions = $scope.questions;
+    for (i = 0; i < questions.length; i++) {
+        var q = questions[i];
+        q.correct = q.verify(q);
+    }
+    $scope.scored = true;
+  };
 
   $scope.paneClass = function(question) {
-      if (!$scope.scored) 
-          return "";
-      else if (question.correct)
-          return "correct";
-      else
-          return "wrong";
-  }
+      if (!$scope.scored) {
+        return "";
+      }
+      else if (question.correct) {
+        return "correct";
+      }
+      else {
+        return "wrong";
+      }
+  };
 
   $scope.reset = function() {
       $scope.scored = false;
+      $scope.question_container = true;
       $scope.questions = [];
       populate();
-  }
+  };
 
   $scope.correctAnswers = function() {
       var q = $scope.questions;
       var sum = 0;
-      for (i = 0; i < q.length; i++) 
+      for (i = 0; i < q.length; i++) {
           if (q[i].correct)
               sum++;
+      }
       return sum;
-  }
+  };
 
   $scope.wrongAnswers = function() {
       return $scope.questions.length - $scope.correctAnswers();
-  }
+  };
 
-  function divisibleBy(factor, x){
-    if ((x % factor)==0){
+  function divisibleBy(factor, x) {
+    if ( (x % factor) === 0) {
         return true;
     }
     return false;
@@ -85,7 +91,7 @@ function QuizCtrl($scope) {
 
   function simpleVerify(question) {
       var q = question;
-      if (q.user_answer == '')
+      if (q.user_answer === '')
           return false;
       else if (! _.isArray(q.correct_answer))
           return q.user_answer == q.correct_answer;
@@ -96,16 +102,20 @@ function QuizCtrl($scope) {
   }
 
   function randomInt(from, to) {
-      return Math.floor(Math.random() * (to - from + 1)) + from
+      return Math.floor(Math.random() * (to - from + 1)) + from;
   }
 
   function randomChoice(xs, excluded) {
-    if (xs.length == 0)
-        return null;
-    else if (!excluded)
-        return xs[randomInt(0, xs.length - 1)];
+    if (xs.length === 0) {
+      return null;
+    }
+    else if (!excluded) {
+      return xs[randomInt(0, xs.length - 1)];
+      }
     else {
-        var remaining = _.reject(xs, function(x) {return _.contains(excluded, x)});
+        var remaining = _.reject(xs, function (x) { 
+          return _.contains(excluded, x)
+        });
         return randomChoice(remaining);
     }
   }
@@ -129,20 +139,28 @@ function QuizCtrl($scope) {
   function populate(){
     var operations = [];
     var qt = $scope.question_types;
-    if (qt.add) 
-        operations.push("+");
-    if (qt.sub)
-        operations.push("-");
-    if (qt.mul)
-        operations.push("*");
-    if (qt.div) 
-        operations.push("/");
-    if (qt.conv)
-        operations.push("conv");
-    if (qt.findFactor)
-        operations.push("findFactor");
-    if (qt.rounding) 
-        operations.push("rounding");
+    if (qt.add) {
+      operations.push("+");
+    }
+    if (qt.sub) {
+      operations.push("-");
+    }
+    if (qt.mul) {
+      operations.push("*");
+    }
+    if (qt.div) {
+      operations.push("/");
+    }
+    if (qt.conv) {
+      operations.push("conv");
+    }
+    if (qt.findFactor) {
+      operations.push("findFactor");
+    }
+    if (qt.rounding) {
+      operations.push("rounding");
+    }
+        
     if (qt.wordProb) {
         operations.push("wordProbAdd");
         operations.push("wordProbSub");
@@ -154,19 +172,19 @@ function QuizCtrl($scope) {
         operations.push("wordProbThreePlus");
     }
 
-    if (operations.length == 0)
-        return;
-
-    for (var i = 0; i < $scope.questionCount; i++) { 
+    if (operations.length === 0) {
+      return;
+    }
+    for (var i = 0; i < $scope.questionCount; i++) {
         var questionText = null;
         var answer = null;
         op = randomChoice(operations);
-        if (op == "+"){
+        if (op == "+") {
             var x = randomInt(0, 50);
             var y = randomInt(0, 50);
             questionText = x + " + " + y;
             answer = [Math.round(x + y)];
-        } 
+        }
         else if (op == "-") {
             var x = randomInt(20, 40);
             var y = randomInt(0, x);
@@ -294,22 +312,23 @@ function QuizCtrl($scope) {
             var lowLim = (factor*randomInt(1,10))+1;
             do{
                 var upLim = (factor*randomInt(3,12))-1;
-            }while(upLim < (lowLim+factor));
+            } while(upLim < (lowLim+factor));
             var answer = [];
             for (f = 0; f < (upLim - lowLim); f++){
                 if (((f+lowLim)%factor) == 0){
                     answer.push(f+lowLim);
                 }
             }
-            questionText = "Find a number divisible by "+factor+" and is between "+lowLim+" and "+" "+upLim+".";
+            questionText = "Find a number divisible by " + factor + " and is between " + lowLim + " and " + " " + upLim + ".";
         }
 
         // Turn corret answers into an array of string
-        if (_.isArray(answer))
-            answer = _.map(answer, function(x) {return x.toString()})
-        else
-            answer = [answer.toString()]
-
+        if (_.isArray(answer)) {
+          answer = _.map(answer, function(x) {return x.toString()});
+        }
+        else {
+          answer = [answer.toString()];
+        }
         $scope.questions.push({
             text:questionText, 
             correct_answer: answer, 
