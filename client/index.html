@@ -22,7 +22,7 @@
         <button math-checkbox="sub" ng-class="{true: 'btn-primary', false: ''}[sub]" type="button" class="btn">Subtraction</button>
         -->
 
-        <div class="row">
+        <div class="container">
             <div class="nine columns" role="content">
                 <h4>Math Quiz</h4>
 
@@ -54,7 +54,7 @@
 
                 <div>
                     <ul class="qcontainer">
-                        <li ng-repeat="question in questions" ng-class="paneClass(question)">
+                        <li class="span3 col-md-4" ng-repeat="question in questions" ng-class="paneClass(question)">
                             <div class="question-text">
                                 {{question.text}}
                             </div>
@@ -74,7 +74,7 @@
             </div>
         </div>
         <p/>
-        <div class="row">
+        <div class="container">
             <div>
                 <span ng-show="showDone()">
                     <button ng-click="score()" type="submit" class="btn btn-large btn-primary">Done</button>
